@@ -1,0 +1,44 @@
+openapi: 2.0.0
+info:
+  version: 1.0.0
+  title: go_echo
+  license:
+    name: R5437198
+servers:
+  - url: http://localhost
+generate:
+  models: true
+  echo-server: true
+paths:
+  /:
+    get:
+      operationId: healthCheck
+      tags:
+        - health_check
+      parameters:
+        - name: id
+          content:
+            application/json:
+              schema:
+                type: integer
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+            schema:
+              $ref: "#/components/schemas/SuccessResponse"
+        '500':
+          description: internal server error
+          schema:
+            result:
+              type: string
+
+components:
+  schemas:
+    SuccessResponse:
+      type: object
+      properties:
+        result:
+          type: string
+          default: success
