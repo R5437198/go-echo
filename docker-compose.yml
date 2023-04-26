@@ -1,0 +1,40 @@
+version: "3.4"
+
+services:
+  rest:
+    container_name: rest
+    build:
+      context: ./
+      dockerfile: ./docker/rest/Dockerfile
+      target: local
+      args:
+        WORKDIR: /go/app/src
+    ports:
+      - "8080:80"
+    volumes:
+      - type: bind
+        source: ./
+        target: /go/app/src
+    tty: true
+    stdin_open: true
+    environment:
+      - TZ=Asia/Tokyo
+
+  database:
+    container_name: db
+    image: postgres:13.6
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      TZ: Asia/Tokyo
+    hostname: postgres
+    user: postgres
+
+volumes:
+  db_data:
+    external: false
