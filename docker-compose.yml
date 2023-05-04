@@ -10,7 +10,7 @@ services:
       args:
         WORKDIR: /go/app/src
     ports:
-      - "8080:80"
+      - "${REST_HOST_PORT}:${REST_CONTAINER_PORT}"
     volumes:
       - type: bind
         source: ./
@@ -24,16 +24,17 @@ services:
     container_name: db
     image: postgres:13.6
     ports:
-      - "5432:5432"
+      - "${DB_HOST_PORT}:${DB_CONTAINER_PORT}"
     volumes:
       - db_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
       TZ: Asia/Tokyo
     hostname: postgres
-    user: postgres
+    user: ${POSTGRES_USER}
 
 volumes:
   db_data:
