@@ -2,10 +2,12 @@ package router
 
 import (
 	"github.com/labstack/echo/v4"
-	"go-echo/internal/presentation/controller/health_check"
-	healthCheck "go-echo/internal/presentation/controller/health_check/gen"
+	"go-echo/internal/di"
+	healthCheckGen "go-echo/internal/presentation/handler/health_check/gen"
+	sexTypeGen "go-echo/internal/presentation/handler/master_data/sex_type/gen"
 )
 
 func New(e *echo.Echo) {
-	healthCheck.RegisterHandlers(e, health_check.NewServer())
+	healthCheckGen.RegisterHandlers(e, di.HealthCheckHandler())
+	sexTypeGen.RegisterHandlers(e, di.SexTypeHandler())
 }
