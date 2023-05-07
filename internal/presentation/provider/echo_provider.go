@@ -10,8 +10,12 @@ import (
 )
 
 func NewEcho() {
-	c := config.New()
 	e := echo.New()
+
+	c, err := config.New()
+	if err != nil {
+		e.Logger.Fatal(err)
+	}
 
 	e.Use(middleware.Logger())
 	e.Use(middleware.Recover())

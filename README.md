@@ -2,4 +2,4 @@
 
 ### 以下を使ったみたレポジトリ
 - echo
-- opai-codegen
+- bun

@@ -10,6 +10,7 @@ paths:
   /:
     get:
       operationId: getHealthCheck
+      description: ヘルスチェック
       tags:
         - health_check
       responses:
@@ -19,6 +20,33 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/DefaultResponse'
+        '500':
+          description: internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /sex-types:
+    get:
+      operationId: getSexTypes
+      description: 性別のマスターデータ
+      tags:
+        - sex_type
+      responses:
+        '200':
+          description: success
+          content:
+            application/json:
+              schema:
+                type: object
+                items:
+                  $ref: "#/components/schemas/SexTypeResponse"
+        '404':
+          description: not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
         '500':
           description: internal server error
           content:
@@ -35,6 +63,9 @@ components:
           type: string
           default: success
     ErrorResponse:
+      required:
+        - message
+        - code
       properties:
         message:
           type: string
@@ -42,3 +73,18 @@ components:
         code:
           type: string
           example: 404
+    SexTypeResponse:
+      required:
+        - id
+        - value
+        - created_at
+        - updated_at
+      properties:
+        id:
+          type: string
+        value:
+          type: string
+        created_at:
+          type: string
+        updated_at:
+          type: string
