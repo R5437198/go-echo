@@ -24,9 +24,9 @@ func (h *Handler) GetSexTypes(ctx echo.Context) error {
 		})
 	}
 
-	var res []gen.SexTypeResponse
+	res := make([]*gen.SexTypeResponse, len(sts))
 	for i, v := range sts {
-		res[i] = gen.SexTypeResponse{
+		res[i] = &gen.SexTypeResponse{
 			Id:        v.Id.String(),
 			Value:     v.Value,
 			CreatedAt: v.CreatedAt.String(),
