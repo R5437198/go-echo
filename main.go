@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-echo/internal/presentation/provider"
+	"go-echo/internal/provider"
 )
 
 func main() {

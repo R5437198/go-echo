@@ -7,7 +7,7 @@ import (
 )
 
 type BunOrm struct {
-	Orm *bun.DB
+	DB *bun.DB
 }
 
 func New() *BunOrm {
@@ -17,6 +17,6 @@ func New() *BunOrm {
 	}
 
 	orm := bun.NewDB(db, pgdialect.New())
-	
-	return &BunOrm{Orm: orm}
+
+	return &BunOrm{DB: orm}
 }

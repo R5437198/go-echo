@@ -1,7 +1,6 @@
 package postgres
 
 import (
-	"database/sql"
 	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
@@ -15,12 +14,9 @@ func TestNew(t *testing.T) {
 		assert.NoError(t, err)
 		defer os.Clearenv()
 
-		c, err := New()
-		defer func(c *sql.DB) {
-			err := c.Close()
-			assert.NoError(t, err)
-		}(c)
+		db, err := New()
+		defer db.Close()
 		assert.NoError(t, err)
-		assert.NotEmpty(t, c)
+		assert.NotEmpty(t, db)
 	})
 }

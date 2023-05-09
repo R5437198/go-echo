@@ -11,7 +11,7 @@ import (
 
 func dbDi() *bun.DB {
 	db := orm.New()
-	return db.Orm
+	return db.DB
 }
 
 func sexTypeRepositoryDi() sexTypeDomain.Repository {

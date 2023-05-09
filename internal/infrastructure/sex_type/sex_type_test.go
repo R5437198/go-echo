@@ -19,7 +19,7 @@ func TestNew(t *testing.T) {
 	assert.NotEmpty(t, db)
 
 	assert.NoError(t, err)
-	assert.Equal(t, &repository{DB: db.Orm}, New(db.Orm))
+	assert.Equal(t, &repository{DB: db.DB}, New(db.DB))
 }
 
 func Test_repository_FetchAll(t *testing.T) {
@@ -33,7 +33,7 @@ func Test_repository_FetchAll(t *testing.T) {
 	db := orm.New()
 	assert.NotEmpty(t, db)
 
-	r := New(db.Orm)
+	r := New(db.DB)
 	res, err := r.FetchAll()
 	assert.NoError(t, err)
 	assert.NotEmpty(t, res)
