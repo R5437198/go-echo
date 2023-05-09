@@ -6,7 +6,17 @@ import (
 	"go-echo/internal/infrastructure/db/postgres"
 )
 
-func New() (*bun.DB, error) {
+type BunOrm struct {
+	Orm *bun.DB
+}
+
+func New() *BunOrm {
 	db, err := postgres.New()
-	return bun.NewDB(db, pgdialect.New()), err
+	if err != nil {
+		return nil
+	}
+
+	orm := bun.NewDB(db, pgdialect.New())
+	
+	return &BunOrm{Orm: orm}
 }
