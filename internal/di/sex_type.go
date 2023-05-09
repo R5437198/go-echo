@@ -9,16 +9,13 @@ import (
 	"go-echo/internal/presentation/handler/master_data/sex_type"
 )
 
-func dbDi() (*bun.DB, error) {
-	db, err := orm.New()
-	if err != nil {
-		return nil, err
-	}
-	return db, err
+func dbDi() *bun.DB {
+	db := orm.New()
+	return db.Orm
 }
 
 func sexTypeRepositoryDi() sexTypeDomain.Repository {
-	db, _ := dbDi()
+	db := dbDi()
 	return sexTypeRepository.New(db)
 }
 
